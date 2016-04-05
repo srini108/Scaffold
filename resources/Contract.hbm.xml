@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 17, 2014 9:32:00 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.model.Contract" table="PROJECT_CONTRACT" schema="APP_USER">
+        <id name="projectContractId" type="integer">
+            <column name="project_contract_id" precision="11" scale="0" />
+            <generator class="identity" />
+        </id>
+        <property name="code" type="string">
+            <column name="CODE" length="32" />
+        </property>
+        <property name="description" type="string">
+            <column name="DESCRIPTION" length="32" />
+        </property>
+        <property name="budget" type="double">
+            <column name="BUDGET" precision="13" scale="2"  />
+        </property>    
+        <property name="cost" type="double">
+            <column name="COST" precision="13" scale="2"  />
+        </property> 
+        <property name="forecast" type="double">
+            <column name="FORECAST" precision="13" scale="2"  />
+        </property> 
+        <property name="paid" type="double">
+            <column name="PAID" precision="13" scale="2"  />
+        </property>                                    
+        <property name="completePercentage" type="double">
+            <column name="COMPLETE_PERCENTAGE" precision="11" scale="2"  />
+        </property>
+        <property name="vendor" type="string">
+            <column name="VENDOR" length="200" />
+        </property>
+        <many-to-one name="project" column="project_id" 
+       class="com.model.Project" not-null="true"/>
+
+    </class>
+    
+
+</hibernate-mapping>

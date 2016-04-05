@@ -1,0 +1,54 @@
+<project name="war-task" default="create-war" basedir=".">
+
+    <target name="init" 
+        description="Initializes some properties.">
+
+        <echo message="Initializing properties."/>
+
+        <property name="build" value=".\build" />
+        <property name="src" value=".\src" />
+        <property name="dist" value=".\dist" />
+        <property name="lib" value=".\lib" />
+        <property name="web" value=".\web" />
+        <property name="meta" value=".\meta" />
+    	<property name="conf" value=".\conf" />
+    	<property name="resources" value=".\resources" />
+        <property name="context-path" value="scaffold" />
+
+    </target>
+	<target name="compile">
+		<javac fork="yes"
+		   srcdir="${src}"
+	           destdir="${build}" 
+	          classpath="${basedir}\lib\hibernate-core-5.1.0.Final.jar;${basedir}\lib\javax.servlet.jar;${basedir}\lib\jboss-logging-3.3.0.Final.jar"
+	           debug="${debug}"
+			   memoryMaximumSize="1664m" encoding="iso-8859-1">
+			   <!-- optimize="${optimize}" -->
+			
+	    </javac>   
+	</target>
+    <target name="prepare" depends="init">
+
+        <echo message=
+          "Cleaning up the build and dist directories."/>
+
+        <delete dir="${build}"/>
+        <mkdir dir="${build}"/>
+        <delete dir="${dist}"/>
+        <mkdir dir="${dist}"/>
+
+    </target><target name="create-war" description=
+     "creates a web application archive file" 
+       depends="prepare, compile">
+
+       <war destfile="${dist}/${context-path}.war" needxmlfile="false">
+
+           <classes dir="${build}"/>
+           <lib dir="${lib}"/>
+           <fileset dir="${web}"/>
+       		<classes dir="${conf}"/>
+       	    <classes dir="${resources}"/>
+       </war>
+    </target>
+
+ </project>
